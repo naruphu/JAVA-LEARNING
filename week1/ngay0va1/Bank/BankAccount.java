@@ -35,21 +35,30 @@ class BankAccount{
     void deposit(double amount){
         if(amount > 0){
             balance += amount;
+            return;
         }
         else System.out.println("Invalid");
     }
 
     void withdraw(double amount){
-        if(amount <= 0) System.out.println("Not suitable");
-        else if(amount > balance) System.out.println("Too much");
+        if(amount <= 0){
+            System.out.println("INVALID");
+            return;
+        }
+        else if(amount > balance){
+            System.out.println("Not enough money in the bank");
+            return;
+        }
         else balance -= amount;
     }
 
     void transferTo(BankAccount receiver, double amount){
         if (amount <= 0) {
-        System.out.println("Not suitable");
+            System.out.println("Not suitable");
+            return;
         } else if (amount > balance) {
             System.out.println("Too much");
+            return;
         } else {
             receiver.balance += amount;
             balance -= amount;
