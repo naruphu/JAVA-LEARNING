@@ -9,7 +9,7 @@ class Main{
         sc.nextLine();
         Student[] students = new Student[n];
         for(int i = 0; i < n; i++){
-            System.out.println("Enter the student: " + (i + 1));
+            System.out.println("Enter the student " + (i + 1));
 
             System.out.print("Enter id: ");
             String id = sc.nextLine();
@@ -36,8 +36,8 @@ class Main{
         do { 
             System.out.println("============ MENU =============");
             System.out.println("1. LIST OF STUDENTS");
-            System.out.println("2. THE STUDENT WITH THE BEST SCORE: ");
-            System.out.println("3. THE STUDENT WITH THE WORST SCORE: ");
+            System.out.println("2. THE STUDENT WITH THE BEST SCORE");
+            System.out.println("3. THE STUDENT WITH THE WORST SCORE");
             System.out.println("4. PRINT PASSED STUDENTS");
             System.out.println("5. PRINT FAILED STUDENTS");
             System.out.println("6. EXIT");
@@ -51,16 +51,21 @@ class Main{
                     }
                     break;
                 case 2:
-                    double max = students[0].calculateAverage();
+                    Student st1 = students[0];
                     for(int i = 0; i < students.length; i++){
-                        if(students[i].calculateAverage() > max) max = students[i].calculateAverage();
+                        if(students[i].calculateAverage() > st1.calculateAverage()) st1 = students[i];
                     }
+                    System.out.println("THE STUDENT WITH THE BEST SCORE: ");
+                    st1.printInfo();
+
                     break;
                 case 3:
-                    double min = students[0].calculateAverage();
+                    Student st = students[0];
                     for(int i = 0; i < students.length; i++){
-                        if(students[i].calculateAverage() < min) min = students[i].calculateAverage();
+                        if(students[i].calculateAverage() < st.calculateAverage()) st = students[i];
                     }
+                    System.out.println("THE STUDENT WITH THE WORST SCORE: ");
+                    st.printInfo();
                     break;
                 case 4:
                     for(int i = 0; i < students.length; i++){
