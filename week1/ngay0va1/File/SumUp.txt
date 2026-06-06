@@ -1,0 +1,101 @@
+Upload file ảnh/PDF       -> InputStream / OutputStream
+Đọc file CSV/log/config   -> BufferedReader
+Ghi file text/log/report  -> BufferedWriter
+Đọc JSON/XML              -> Reader hoặc thư viện như Jackson
+
+FileInputStream / FileOutputStream
+-> byte
+-> ảnh, video, PDF, zip, upload file
+
+Reader / Writers
+-> text
+-> txt, csv, json, xml
+
+BufferedReader / BufferedWriter
+-> text nhưng nhanh và tiện hơn
+-> đọc từng dòng, ghi từng dòng
+
+----------------------------------------------------------------------
+
+Checked Exception
+-> Java bắt xử lý trước khi chạy
+-> thường xảy ra khi làm việc với bên ngoài chương trình
+-> file, database, network
+
+Unchecked Exception
+-> Java không bắt xử lý trước
+-> thường do lỗi logic code
+-> null, chia cho 0, sai index array
+
+----------------------------------------------------------------------
+
+fw.close(); khi dùng try catch thì khỏi cũng được tại nếu dòng trên lỗi thì nó k dc dùng
+-- > try catch resources giải quyết chuyện đó 
+Cái gì được mở trong try (...)
+Java sẽ tự đóng sau khi dùng xong.
+
+--------------------------------------------------------------------
+
+try-with-resources
+-> cách mở/đóng tài nguyên an toàn
+
+Checked Exception
+-> Java bắt xử lý, thường là file/database/network
+
+Unchecked Exception
+-> Java không bắt xử lý, thường là lỗi logic
+
+Path
+-> đại diện cho đường dẫn file/folder
+
+Files
+-> công cụ tiện ích để đọc, ghi, kiểm tra, tạo, xóa file
+
+----------------------------------------------------------------------
+Đọc/ghi file đơn giản       -> Path + Files
+Đọc file text lớn từng dòng -> BufferedReader
+Ghi text nhiều dòng         -> BufferedWriter
+Upload/download file        -> InputStream/OutputStream + Path/Files
+Quản lý lỗi                 -> try-with-resources + try-catch
+
+----------------------------------------------------------------------
+
+Dùng readString() khi
+- FILE NHỎ
+- MUỐN ĐỌC TOÀN BỘ NỘI DUNG
+- JSON
+- HTML
+- XML
+
+----------------------------------------------------------------------
+
+Dùng readAllLines() khi
+- CSV
+- DANH SÁCH USER, EMAIL
+- FILE CẤU HÌNH NHIỀU DÒNG
+
+----------------------------------------------------------------------
+
+Files.lines() 
+Khác với readAllLine là ĐỌC HẾT VÍ DỤ CÓ 1000000 DÒNG, xong nhét vào RAM, NẾU FILE 1 TRIỆU DÒNG
+THÌ RAM CÓ THỂ TĂNG RẤT NHIỀU
+--- > Files.lines() đọc từng dòng khi cần, k đọc hết 1 lần
+EX :    đọc dòng 1 -> in
+        dòng 2 -> in
+        dòng 3 -> in
+Ko cần giữ toàn bộ file trong ram
+
+
+try(Stream<String> lines =
+        Files.lines(path)) {
+
+    lines.forEach(System.out::println);
+
+}
+
+java chỉ giữ 1 dòng , hoặc vài dòng
+
+Files.lines()       ⭐⭐⭐⭐⭐
+Files.readString() ⭐⭐⭐⭐
+BufferedReader     ⭐⭐⭐⭐
+Files.readAllLines() ⭐⭐⭐
