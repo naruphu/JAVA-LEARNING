@@ -1,0 +1,45 @@
+-------------------------------------
+Get-ChildItem -Recurse -Filter *.class | Remove-Item -Force 
+là xóa hết file class cũ
+
+sau đó compile lại trên dell
+javac -encoding UTF-8 -d out Main.java model1\*.java
+
+-->
+javac              = compile code Java
+-encoding UTF-8    = đọc tiếng Việt trong file theo UTF-8
+-d out             = bỏ file .class sau khi compile vào folder out
+Main.java          = compile Main
+model1\*.java      = compile tất cả file .java trong folder model1
+
+cuối cùng chạy 
+java -cp out Main
+
+--> java       = chạy chương trình
+-cp out    = tìm file .class trong folder out
+Main       = chạy class Main có hàm main()
+Classpath là nơi Java tìm class để chạy; Oracle khuyến nghị dùng -classpath/-cp để chỉ rõ đường dẫn class cho từng lần chạy.
+
+
+--------------------------------------
+Combo đầy đủ để copy chạy
+cd C:\Users\Administrator\JAVA-LEARNING
+git pull
+cd week1\ngay0va1\FinalProjectOOP
+rmdir /s /q out
+javac -encoding UTF-8 -d out Main.java model1\*.java
+java -cp out Main
+
+------------------------------------------------------------
+
+| Mục đích                               |         Mac Terminal |                        Dell CMD |
+| -------------------------------------- | -------------------: | ------------------------------: |
+| Xem file/folder trong thư mục hiện tại |                 `ls` |                           `dir` |
+| Xóa màn hình terminal                  |              `clear` |                           `cls` |
+| Xem đang ở thư mục nào                 |                `pwd` |                            `cd` |
+| Vào thư mục con                        |      `cd folderName` |                 `cd folderName` |
+| Lùi ra thư mục cha                     |              `cd ..` |                         `cd ..` |
+| Vào đường dẫn cụ thể                   | `cd /Users/name/...` | `cd C:\Users\Administrator\...` |
+| Xóa folder                             |  `rm -rf folderName` |        `rmdir /s /q folderName` |
+| Xóa file                               |        `rm fileName` |                  `del fileName` |
+| Tạo folder                             |   `mkdir folderName` |              `mkdir folderName` |

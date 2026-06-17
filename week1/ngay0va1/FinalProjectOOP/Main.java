@@ -1,7 +1,13 @@
-import model1.*;
+import file.BookFileManager;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import model1.*;
+import repository.BookRepository;
+import repository.Repository;
+import file.CustomerFileManager;
+import file.OrderFileManager;
+
 
 class Main{
     public static void main(String[] args) {
@@ -22,6 +28,70 @@ class Main{
         System.out.println("Total: " + order.calculateTotal());
         order.printInvoice();
 
+        Repository<Book> bookRepository = new Repository<>();
+        bookRepository.add(java);
+        bookRepository.add(c);
+        bookRepository.add(python);
+        System.out.println("-------------------TEST REPOSITORY----------------------");
+        System.out.println("Books in repository:");         
+        for (Book book : bookRepository.getAll()) {
+            System.out.println(book.getTitle());
+        }
+        System.out.println(bookRepository.size());
+        bookRepository.remove(c);
+        System.out.println("Books in repository after removal:");   
+        for (Book book : bookRepository.getAll()) {
+            System.out.println(book.getTitle());
+        }
+        System.out.println(bookRepository.size());
+
+        BookRepository bookRepo = new BookRepository();
+        bookRepo.add(java); 
+        bookRepo.add(c);
+        bookRepo.add(python);
+        System.out.println("-------------------TEST SEARCHABLE----------------------");
+        List<Book> searchResults = bookRepo.search("core");
+        System.out.println("Search results for 'core':");
+        for (Book book : searchResults) {
+            System.out.println(book.getTitle());
+        }
+
+        bookRepo.findById(002).ifPresent(book -> System.out.println("Found book: " + book.getTitle()));
+        System.out.println("Book with ID 002 exists: " + bookRepo.existsById(002));
+        System.out.println("Book with ID 999 exists: " + bookRepo.existsById(999));
+
+
+        BookFileManager fileManager = new BookFileManager();
+        List<Book> booksToSave = new ArrayList<>();
+        booksToSave.add(java);
+        booksToSave.add(c);
+        booksToSave.add(python);
+        fileManager.saveBooksToFile(booksToSave);
+        List<Book> loadedBooks = fileManager.loadBooksFromFile();
+        System.out.println("Loaded books from file:");
+        for (Book book : loadedBooks) {
+            System.out.println(book.getTitle());
+        }
+
+        CustomerFileManager customerFileManager = new CustomerFileManager();
+        List<Customer> customersToSave = new ArrayList<>();
+        customersToSave.add(c1);
+        customerFileManager.saveCustomersToFile(customersToSave);
+        List<Customer> loadedCustomers = customerFileManager.loadCustomersFromFile();
+        System.out.println("Loaded customers from file:");
+        for (Customer customer : loadedCustomers) {
+            System.out.println(customer.getName());
+        }
+
+        OrderFileManager orderFileManager = new OrderFileManager();
+        List<Order> ordersToSave = new ArrayList<>();       
+        ordersToSave.add(order);
+        orderFileManager.saveOrdersToFile(ordersToSave);    
+        List<Order> loadedOrders = orderFileManager.loadOrdersFromFile();
+        System.out.println("Loaded orders from file:");
+        for (Order loadedOrder : loadedOrders) {
+            System.out.println("Order ID: " + loadedOrder.getId() + ", Customer: " + loadedOrder.getCustomer().getName() + ", Total: " + loadedOrder.calculateTotal());
+        }
 
     }
 }

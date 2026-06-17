@@ -1,4 +1,5 @@
 package model1;
+import exception.*;
 public class Book{
     private int id;
     private String title;
@@ -38,14 +39,14 @@ public class Book{
         return price;
     }
     public void setPrice(double price){
-        if(price <= 0) throw new IllegalArgumentException("Quantity cannot be negative");
+        if(price <= 0) throw new InvalidPriceException("Price cannot be zero or negative");
         this.price = price;
     }   
     public int getQuantity(){
         return quantity;
     }
     public void setQuantity(int quantity){
-        if(quantity < 0) throw new IllegalArgumentException("Quantity cannot be negative");
+        if(quantity < 0) throw new OutOfStockException("Quantity cannot be negative");
         this.quantity = quantity;
     }
     public Category getCategory(){

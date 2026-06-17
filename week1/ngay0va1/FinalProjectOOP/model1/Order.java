@@ -1,4 +1,5 @@
 package model1;
+import exception.OutOfStockException;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -53,8 +54,7 @@ public class Order{
         if(quantity <= 0) throw new IllegalArgumentException("Quantity cannot be negative");
         if (book == null) throw new IllegalArgumentException("Book cannot be null");
         if(quantity > book.getQuantity()){
-            System.out.println("Not enough books for " + book.getTitle());
-            return;
+            throw new OutOfStockException("Not enough books for " + book.getTitle());
         }
 
         for(OrderItems item : books){
