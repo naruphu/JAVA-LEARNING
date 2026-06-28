@@ -30,7 +30,7 @@ public class ReportService {
     }
 
     public List<String> getBookName(){
-        return bookRepository.getAll().strean()
+        return bookRepository.getAll().stream()
                 .map(Book::getTitle) // book -> book.getTitle()
                 .collect(Collectors.toList());
     }
