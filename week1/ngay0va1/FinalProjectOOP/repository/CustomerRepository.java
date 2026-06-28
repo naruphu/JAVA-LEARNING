@@ -18,17 +18,17 @@ public class CustomerRepository extends Repository<Customer> implements Searchab
         }
         return results;
 
-        public Optional<Customer> findById(int id) {
-            for (Customer customer : getAll()) {
-                if (customer.getId() == id) {
-                    return Optional.of(customer);
-                }
-            }
-            return Optional.empty();
+    public Optional<Customer> findById(int id) {
+        for (Customer customer : getAll()) {
+            if (customer.getId() == id) {
+                return Optional.of(customer);
+           }
         }
-        public boolean existsById(int id) {
-            return findById(id).isPresent();
-        }
+        return Optional.empty();
+   }
+    public boolean existsById(int id) {
+        return findById(id).isPresent();
     }
+}
     
 }
